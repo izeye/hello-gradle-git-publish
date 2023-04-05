@@ -23,14 +23,12 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-asciidoctor {
-	outputDir gitPublish.repoDir
-	dependsOn gitPublishReset
-}
-
 gitPublish {
 	repoUri = 'https://github.com/izeye/hello-gradle-git-publish'
 	branch = 'gh-pages'
+	contents {
+		from asciidoctor.outputDir
+	}
 }
 
-gitPublishCommit.dependsOn asciidoctor
+gitPublishCopy.dependsOn asciidoctor
